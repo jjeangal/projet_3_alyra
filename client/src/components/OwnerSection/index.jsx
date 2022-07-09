@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Status from "./Status";
 import StatusChange from "./StatusChange";
+import AddVoter from "./AddVoter";
 
 function OwnerSection() {
   const [value, setValue] = useState(0);
@@ -9,11 +10,12 @@ function OwnerSection() {
     <>
       <Status value={value} />
       <StatusChange setValue={setValue}/>
+      <AddVoter />
     </>;
   
   return (
     <div className="owner">
-      <h1 className="title"></h1>
+      <h1 className="title">Only Owner</h1>
       {owner}
     </div>
   );

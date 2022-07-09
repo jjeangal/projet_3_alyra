@@ -6,12 +6,11 @@ function StatusChange({ setValue }) {
     const updateStatus = async() => {
         const value = await contract.methods.workflowStatus().call({ from: accounts[0] });
         setValue(value);
-        console.log(value);
     };
     
     const startProp = async() => {
         try {
-            await contract.methods.startProposalsRegistering().call({ from: accounts[0] });
+            await contract.methods.startProposalsRegistering().send({ from: accounts[0] });
             updateStatus();
         } catch (error) {
             if(error.message.includes("Registering proposals cant be started now")) {
@@ -22,7 +21,7 @@ function StatusChange({ setValue }) {
 
     const endProp = async() => {
         try {
-            await contract.methods.endProposalsRegistering().call({ from: accounts[0] });
+            await contract.methods.endProposalsRegistering().send({ from: accounts[0] });
             updateStatus();
         } catch (error) {
             if(error.message.includes("Registering proposals havent started yet")) {
@@ -33,7 +32,7 @@ function StatusChange({ setValue }) {
 
     const startVoting = async() => {
         try {
-            await contract.methods.startVotingSession().call({ from: accounts[0] });
+            await contract.methods.startVotingSession().send({ from: accounts[0] });
             updateStatus();
         } catch (error) {
             if(error.message.includes("Registering proposals phase is not finished")) {
@@ -44,7 +43,7 @@ function StatusChange({ setValue }) {
 
     const endVoting = async() => {
         try {
-            await contract.methods.endVotingSession().call({ from: accounts[0] });
+            await contract.methods.endVotingSession().send({ from: accounts[0] });
             updateStatus();
         } catch (error) {
             if(error.message.includes("Voting session havent started yet")) {
@@ -55,7 +54,7 @@ function StatusChange({ setValue }) {
 
     const tallyVotes = async() => {
         try {
-            await contract.methods.tallyVotes().call({ from: accounts[0] });
+            await contract.methods.tallyVotes().send({ from: accounts[0] });
             updateStatus();
         } catch (error) {
             if(error.message.includes("Current status is not voting session ended")) {
