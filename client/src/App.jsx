@@ -1,7 +1,6 @@
 import { EthProvider } from "./contexts/EthContext";
 import Intro from "./components/Intro/";
 import Setup from "./components/Setup";
-import Demo from "./components/Demo";
 import Footer from "./components/Footer";
 import OwnerSection from "./components/OwnerSection";
 import VoterSection from "./components/VoterSection";
@@ -20,8 +19,6 @@ function App() {
           <VoterSection />
           <hr />
           <Setup />
-          <hr />
-          <Demo />
           <hr />
           <LogsSection />
           <hr />
