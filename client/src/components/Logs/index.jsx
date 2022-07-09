@@ -1,4 +1,4 @@
-function Logs() {
+function LogsSection() {
     return (
       <>
         <div><p>Handle events</p></div> 
@@ -6,5 +6,5 @@ function Logs() {
     );
   }
   
-  export default Logs;
+  export default LogsSection;
   

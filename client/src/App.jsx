@@ -3,6 +3,9 @@ import Intro from "./components/Intro/";
 import Setup from "./components/Setup";
 import Demo from "./components/Demo";
 import Footer from "./components/Footer";
+import OwnerSection from "./components/OwnerSection";
+import VoterSection from "./components/VoterSection";
+import LogsSection from "./components/Logs";
 import "./App.css";
 
 function App() {
@@ -12,9 +15,15 @@ function App() {
         <div className="container">
           <Intro />
           <hr />
+          <OwnerSection />
+          <hr />
+          <VoterSection />
+          <hr />
           <Setup />
           <hr />
           <Demo />
+          <hr />
+          <LogsSection />
           <hr />
           <Footer />
         </div>
