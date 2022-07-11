@@ -1,35 +1,38 @@
 import useEth from "../../contexts/EthContext/useEth";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function AddVoter({ setAddresses }) {
     const { state: { contract, accounts } } = useEth();
     const [inputValue, setInputValue] = useState("");
 
-    const getEvents = async() => {
-        let options = {
-            fromBlock: 0
+    useEffect(() => {
+        const getEvents = async () => {
+            try {
+                if(contract) {
+                    let options = {
+                        fromBlock: 0
+                    };
+                    const addrArray = await contract.getPastEvents('VoterRegistered', options);
+                    setAddresses(addrArray);
+                }
+            } catch (err) {
+              console.error(err);
+            }
         };
-
-        const addrArray = await contract.getPastEvents('VoterRegistered', options);
-        setAddresses(addrArray);
-    }
+        getEvents();
+    }, [contract, setAddresses]);
 
     const addVoter = async() => {
         try {
             await contract.methods.addVoter(inputValue).send({ from: accounts[0] });
-            getEvents();
+            const addrArray = await contract.getPastEvents('VoterRegistered',  {fromBlock: 0});
+            setAddresses(addrArray);
         } catch (error) {
             if (inputValue === "") {
                 alert("choose a valid address");
             }
         }
     }
-    /** 
-    useEffect(() => {
-        getEvents();
-    }, []);
-    */
 
     const handleInputChange = e => {
         if (/0[xX][0-9a-fA-F]+/.test(e.target.value)) {
