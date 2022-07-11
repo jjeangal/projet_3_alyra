@@ -1,10 +1,21 @@
-function VoterSection() {
-    return (
-      <>
-        <div><p>Voter Section</p></div> 
-      </>
-    );
-  }
+import Proposals from "./Proposals";
+import Vote from "./Vote";
+
+function VoterSection() {  
+  const voters = 
+    <>
+      <Proposals/>
+      <br />
+      <br />
+      <Vote />
+    </>; 
   
-  export default VoterSection;
+  return (
+    <div className="voter">
+      <h1 className="title">Voters Section</h1>
+      {voters}
+    </div>
+  );
+}  
+ export default VoterSection;
   

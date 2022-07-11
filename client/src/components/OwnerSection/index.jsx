@@ -3,14 +3,14 @@ import Status from "./Status";
 import StatusChange from "./StatusChange";
 import AddVoter from "./AddVoter";
 
-function OwnerSection() {
+function OwnerSection({ setAddresses }) {
   const [value, setValue] = useState(0);
 
   const owner = 
     <>
       <Status value={value} />
       <StatusChange setValue={setValue}/>
-      <AddVoter />
+      <AddVoter setAddresses={setAddresses}/>
     </>;
   
   return (

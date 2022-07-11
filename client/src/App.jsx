@@ -1,26 +1,29 @@
 import { EthProvider } from "./contexts/EthContext";
 import Intro from "./components/Intro/";
-import Setup from "./components/Setup";
+import Header from "./components/Header";
 import Footer from "./components/Footer";
 import OwnerSection from "./components/OwnerSection";
 import VoterSection from "./components/VoterSection";
 import LogsSection from "./components/Logs";
 import "./App.css";
+import { useState } from "react";
 
 function App() {
+  const [addresses, setAddresses] = useState([]);
+
   return (
     <EthProvider>
       <div id="App" >
         <div className="container">
+          <Header />
+          <hr />
           <Intro />
           <hr />
-          <OwnerSection />
+          <OwnerSection setAddresses={setAddresses}/>
           <hr />
           <VoterSection />
           <hr />
-          <Setup />
-          <hr />
-          <LogsSection />
+          <LogsSection addresses={addresses}/>
           <hr />
           <Footer />
         </div>
