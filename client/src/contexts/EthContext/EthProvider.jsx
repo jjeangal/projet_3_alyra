@@ -36,7 +36,6 @@ function EthProvider({ children }) {
         console.error(err);
       }
     };
-
     tryInit();
   }, [init]);
 
@@ -44,6 +43,7 @@ function EthProvider({ children }) {
     const events = ["chainChanged", "accountsChanged"];
     const handleChange = () => {
       init(state.artifact);
+      alert("Changing active address.");
     };
 
     events.forEach(e => window.ethereum.on(e, handleChange));
