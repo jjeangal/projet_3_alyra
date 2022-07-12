@@ -47,7 +47,7 @@ contract Voting is Ownable {
     /// Event to be triggered when a voter gets registered    
     event VoterRegistered(address _voterAddress);
     /// Event to be triggered when a proposal gets registered 
-    event ProposalRegistered(uint _proposalId);
+    event ProposalRegistered(uint _proposalId, string _desc);
     /// Event to be triggered when a voter votes for a proposal
     event Voted(address _voter, uint _proposalId);
 
@@ -97,7 +97,7 @@ contract Voting is Ownable {
         Proposal memory proposal;
         proposal.description = _desc;
         proposalsArray.push(proposal);
-        emit ProposalRegistered(proposalsArray.length-1);
+        emit ProposalRegistered(proposalsArray.length-1, _desc);
     }
 
     // ::::::::::::: VOTE ::::::::::::: //
