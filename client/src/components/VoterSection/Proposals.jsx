@@ -1,17 +1,33 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
 function Proposals() {
   const { state: { contract, accounts } } = useEth();
-  const [number, updateNumber] = useState(0);
+  const [proposals, setProposals] = useState([]);
   const [description, setDescription] = useState("");
+  const [voteCount, setVoteCount] = useState(0);
+  const [number, updateNumber] = useState(0);
   const [id, setId] = useState("");
+
+  useEffect(() => {
+    const first = async() => {
+      if(contract) {
+        const transaction = await contract.getPastEvents('ProposalRegistered', {fromBlock: 0});
+        const numberOfTransactions = transaction.length;
+        updateNumber(numberOfTransactions);
+        setProposals(transaction);
+      }
+    }
+    first();
+  }, [contract, accounts]);
 
   const addProposal = async() => {
     if(description !== "") {
       const transac = await contract.methods.addProposal(description).send({ from: accounts[0] });
       const eventData = transac.events.ProposalRegistered.returnValues._proposalId;
-      updateNumber(eventData);
+      updateNumber(parseInt(eventData));
+      setProposals(proposals => [...proposals, transac.events.ProposalRegistered]);
     } else {
       alert('Proposal description cannot be empty');
     }
@@ -19,9 +35,9 @@ function Proposals() {
 
   const getProposal = async() => {
     if (/^(0|[1-9][0-9]*)$/.test(id)) { // Also check if Id exists ( < nb of proposals)
-      const proposal = await contract.methods.getOneProposal(id).send({ from: accounts[0] });
-      console.log(proposal[0]);
-      // Do something with proposal (how to show it)
+      const proposal = await contract.methods.getOneProposal(id).call({ from: accounts[0] });
+      setVoteCount(proposal.voteCount);
+      // Do something with proposal -> show vote count 
     } else {
       alert('Proposal must be a positive number');
     }
@@ -37,12 +53,19 @@ function Proposals() {
 
   return(
     <div>
-      <p>There are currently {number} proposals and their ids go from 0 to {number}</p>
+      <p>IDs start at 0 and latest proposal id is {number > 0? number-1: "None"}</p>
       <input placeholder="add proposal description" onChange={handleAddProposal}></input>
       <button onClick={addProposal}>press</button>
       <br />
       <input placeholder="get proposal by id" onChange={handleGetProposal}></input>
       <button onClick={getProposal}>press</button>
+      <p>This proposal got {voteCount} votes</p>
+      <table>
+        <tbody>
+          {proposals.map((proposal) => 
+            (<tr key={proposal.id}><td>{proposal.returnValues._proposalId}</td><td>{proposal.returnValues._desc}</td></tr>))}
+        </tbody>
+      </table>
     </div>
   )
 }
