@@ -3,13 +3,21 @@ import useEth from "../../contexts/EthContext/useEth";
 
 function Vote() {
     const { state: { contract, accounts } } = useEth();
-    const [proposaId, updateProposalId] = useState();
     const [voterAddress, updateVoterAddress] = useState("");
     const [votedId, updateVotedId] = useState();
 
     const vote = async() => {
-        if (/^(0|[1-9][0-9]*)$/.test(proposaId)) {
-            await contract.methods.setVote(proposaId).send({ from: accounts[0] });
+        const proposal = document.getElementById("proposal").value;
+        const allProposals = await contract.getPastEvents('ProposalRegistered', {fromBlock: 0});
+
+        if (/^(0|[1-9][0-9]*)$/.test(proposal)) {
+            if(proposal <= allProposals.length - 1) {
+                await contract.methods.setVote(proposal).send({ from: accounts[0] });
+            } else {
+                alert("Proposal associated to this id does not exist");
+            }
+        } else {
+            alert("Proposal Id must be a positive interger");
         }
     }
         
@@ -25,13 +33,9 @@ function Vote() {
         }
     }
 
-    const handleChange = e => {
-        updateProposalId(e);
-    }
-
     return(
         <div>
-            <input placeholder="set id of proposal" onChange={handleChange}></input>
+            <input id="proposal" placeholder="set id of proposal"></input>
             <button onClick={vote}>Vote</button>
             <br />
             <input id="address" placeholder="search voter from address"></input>

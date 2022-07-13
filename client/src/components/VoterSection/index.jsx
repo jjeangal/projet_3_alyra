@@ -1,13 +1,13 @@
 import Proposals from "./Proposals";
 import Vote from "./Vote";
 
-function VoterSection() {  
+function VoterSection() {
   const voters = 
     <>
       <Proposals/>
       <br />
       <br />
-      <Vote />
+      <Vote/>
     </>; 
   
   return (
