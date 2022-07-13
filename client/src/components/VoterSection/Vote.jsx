@@ -1,17 +1,15 @@
 import { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-function Vote() {
+function Vote( {number} ) {
     const { state: { contract, accounts } } = useEth();
     const [voterAddress, updateVoterAddress] = useState("");
     const [votedId, updateVotedId] = useState();
 
     const vote = async() => {
         const proposal = document.getElementById("proposal").value;
-        const allProposals = await contract.getPastEvents('ProposalRegistered', {fromBlock: 0});
-
         if (/^(0|[1-9][0-9]*)$/.test(proposal)) {
-            if(proposal <= allProposals.length - 1) {
+            if(proposal < number) {
                 await contract.methods.setVote(proposal).send({ from: accounts[0] });
             } else {
                 alert("Proposal associated to this id does not exist");
