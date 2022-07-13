@@ -5,8 +5,8 @@ import Footer from "./components/Footer";
 import OwnerSection from "./components/OwnerSection";
 import VoterSection from "./components/VoterSection";
 import LogsSection from "./components/Logs";
-import "./App.css";
 import { useState } from "react";
+import "./App.css";
 
 function App() {
   const [addresses, setAddresses] = useState([]);
@@ -18,10 +18,10 @@ function App() {
           <Header />
           <hr />
           <Intro />
-          <hr />
+          <hr/>
           <OwnerSection setAddresses={setAddresses}/>
           <hr />
-          <VoterSection />
+          <VoterSection addresses={addresses}/>
           <hr />
           <LogsSection addresses={addresses}/>
           <hr />
