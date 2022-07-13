@@ -1,29 +1,31 @@
 import { useState } from "react";
 
-// props: number, updateNumber, setProposals, contract, accounts
-function Proposals(props) {
+function Proposals( { number, updateNumber, setProposals, contract, accounts } ) {
   const [description, setDescription] = useState("");
   const [voteCount, setVoteCount] = useState(0);
+  const [proposalGetter, handleProposalGetter] = useState(false);
   const [id, setId] = useState("");
 
   const addProposal = async() => {
     if(description !== "") {
-      const transac = await props.contract.methods.addProposal(description).send({ from: props.accounts[0] });
-      const eventData = transac.events.ProposalRegistered.returnValues._proposalId;
-      props.updateNumber(parseInt(eventData));
-      props.setProposals(proposals => [...proposals, transac.events.ProposalRegistered]);
+      const transac = await contract.methods.addProposal(description).send({ from: accounts[0] });
+      const eventData = transac.events.ProposalRegistered.returnValues._proposalId + 1;
+      setProposals(proposals => [...proposals, transac.events.ProposalRegistered]);
+      updateNumber(parseInt(eventData));
     } else {
       alert('Proposal description cannot be empty');
     }
   } 
 
   const getProposal = async() => {
-    if (/^(0|[1-9][0-9]*)$/.test(id)) {
-      if(id < props.number) {
-        const proposal = await props.contract.methods.getOneProposal(id).call({ from: props.accounts[0] });
+
+    const proposalId = document.getElementById("id").value;
+    if (/^(0|[1-9][0-9]*)$/.test(proposalId)) {
+      if(proposalId < number) {
+        const proposal = await contract.methods.getOneProposal(proposalId).call({ from: accounts[0] });
         setVoteCount(proposal.voteCount);
-        console.log("do something");
-        // Do something with proposal -> show vote count 
+        setId(proposalId);
+        handleProposalGetter(true);
       } else {
         alert("Proposal associated to this id does not exist");
       }
@@ -36,19 +38,14 @@ function Proposals(props) {
     setDescription(e.target.value);
   };
 
-  const handleGetProposal = e => {
-    setId(e.target.value);
-  }
-
   return(
     <div>
       <input placeholder="add proposal description" onChange={handleAddProposal}></input>
       <button onClick={addProposal}>press</button>
       <br />
-      <input placeholder="get proposal by id" onChange={handleGetProposal}></input>
+      <input id="id" placeholder="get proposal by id"></input>
       <button onClick={getProposal}>press</button>
-      <p>This proposal got {voteCount} votes</p>
-
+      {proposalGetter === true ? <p>Proposal {id} got {voteCount} votes</p> : null}
     </div>
   )
 }
