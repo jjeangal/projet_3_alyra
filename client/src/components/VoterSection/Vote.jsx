@@ -5,6 +5,7 @@ function Vote( {number} ) {
     const { state: { contract, accounts } } = useEth();
     const [voterAddress, updateVoterAddress] = useState("");
     const [votedId, updateVotedId] = useState();
+    const [voterGetter, handleVoterGetter] = useState(false);
 
     const vote = async() => {
         const proposal = document.getElementById("proposal").value;
@@ -21,11 +22,11 @@ function Vote( {number} ) {
         
     const getVoter = async() => {
         const addr = document.getElementById("address").value;
-
         if (/0[xX][0-9a-fA-F]+/.test(addr)) {
             const transac = await contract.methods.getVoter(addr).call({ from: accounts[0] });
             updateVotedId(transac.votedProposalId);
             updateVoterAddress(addr);
+            handleVoterGetter(true);
         } else {
             alert("Not a valid address");
         }
@@ -38,7 +39,7 @@ function Vote( {number} ) {
             <br />
             <input id="address" placeholder="search voter from address"></input>
             <button onClick={getVoter}>Get Voter</button>
-            <p>Voter {voterAddress} voted for proposal {votedId} </p>
+            {voterGetter === true? <p>Voter {voterAddress} voted for proposal {votedId} </p> : null}
         </div>
     )
 }
