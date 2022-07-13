@@ -1,22 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Status from "./Status";
 import StatusChange from "./StatusChange";
 import AddVoter from "./AddVoter";
+import { useEth } from "../../contexts/EthContext";
 
 function OwnerSection({ setAddresses }) {
-  const [value, setValue] = useState(0);
+  const { state: { contract, accounts } } = useEth();
+  const [status, setStatus] = useState(0);
+  const [component, updateComponent] = useState();
 
-  const owner = 
+  useEffect(() => {
+    const onlyOwner = 
     <>
-      <Status value={value} />
-      <StatusChange setValue={setValue}/>
+      <StatusChange setStatus={setStatus}/>
       <AddVoter setAddresses={setAddresses}/>
-    </>;
-  
+    </>
+
+    const notOwner = 
+      <>
+        <p>You are not an owner</p>
+      </>
+
+    const load = async() => {
+      if(contract) {
+        const owner = await contract.methods.owner().call();
+        owner === accounts[0] ? updateComponent(onlyOwner) : updateComponent(notOwner);
+      }
+    }
+    load();
+    
+  }, [contract, accounts, status, setAddresses]);
+
   return (
     <div className="owner">
       <h1 className="title">Only Owner</h1>
-      {owner}
+      <Status status={status} />
+      {component}
     </div>
   );
 }

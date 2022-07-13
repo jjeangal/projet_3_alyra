@@ -1,5 +1,4 @@
-function Status({value}) {
-  
+function Status({status}) {
   const getStatus = (status) => {
     switch(status){
       case "0":
@@ -21,7 +20,7 @@ function Status({value}) {
   
   return(
     <span>
-      <strong>{getStatus(value)}</strong>
+      <strong>{getStatus(status)}</strong>
     </span>
   )
 }

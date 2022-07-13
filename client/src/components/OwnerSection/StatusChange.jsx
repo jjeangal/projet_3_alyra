@@ -1,11 +1,20 @@
+import { useEffect } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-function StatusChange({ setValue }) {
-    const { state: { contract, accounts } } = useEth();
+function StatusChange({ setStatus }) {
+    const { state: { accounts, contract } } = useEth();
+
+    useEffect(() => {
+        const loadStatus = async() => {
+            const status = await contract.methods.workflowStatus().call();
+            setStatus(status);
+        }
+        loadStatus();
+    }, [contract, setStatus]);
 
     const updateStatus = async() => {
-        const value = await contract.methods.workflowStatus().call({ from: accounts[0] });
-        setValue(value);
+        const status = await contract.methods.workflowStatus().call();
+        setStatus(status);
     };
     
     const startProp = async() => {

@@ -9,10 +9,7 @@ function AddVoter({ setAddresses }) {
         const getEvents = async () => {
             try {
                 if(contract) {
-                    let options = {
-                        fromBlock: 0
-                    };
-                    const addrArray = await contract.getPastEvents('VoterRegistered', options);
+                    const addrArray = await contract.getPastEvents('VoterRegistered', {fromBlock: 0});
                     setAddresses(addrArray);
                 }
             } catch (err) {
@@ -24,9 +21,9 @@ function AddVoter({ setAddresses }) {
 
     const addVoter = async() => {
         try {
-            await contract.methods.addVoter(inputValue).send({ from: accounts[0] });
-            const addrArray = await contract.getPastEvents('VoterRegistered',  {fromBlock: 0});
-            setAddresses(addrArray);
+            const transac = await contract.methods.addVoter(inputValue).send({ from: accounts[0] });
+            setAddresses(addresses => [...addresses, transac.events.VoterRegistered]);
+            setInputValue("");
         } catch (error) {
             if (inputValue === "") {
                 alert("choose a valid address");
