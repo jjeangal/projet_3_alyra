@@ -1,5 +1,6 @@
 import useEth from "../../contexts/EthContext/useEth";
 import { useState, useEffect } from "react";
+import "../../styling/Buttons.css";
 
 function AddVoter({ setAddresses }) {
     const { state: { contract, accounts } } = useEth();
@@ -38,14 +39,15 @@ function AddVoter({ setAddresses }) {
     };
 
     return (
-        <div className="input-btn">
-            Add following adress: (<input
+        <div>
+            Add following adress: <input
+                class="inputs"
                 type="text"
                 placeholder="address"
                 value={inputValue}
                 onChange={handleInputChange}
-             />)
-            <button onClick={addVoter}>+</button>
+             />
+            <button class="buttonS" onClick={addVoter}>Add</button>
         </div>
     )
 }

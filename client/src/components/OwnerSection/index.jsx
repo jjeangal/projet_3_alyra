@@ -13,6 +13,7 @@ function OwnerSection({ setAddresses }) {
     const onlyOwner = 
     <>
       <StatusChange setStatus={setStatus}/>
+      <br/>
       <AddVoter setAddresses={setAddresses}/>
     </>
 
@@ -33,7 +34,7 @@ function OwnerSection({ setAddresses }) {
 
   return (
     <div className="owner">
-      <h1 className="title">Only Owner</h1>
+      <h2 className="title">Administrator section</h2>
       <Status status={status} />
       {component}
     </div>

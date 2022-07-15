@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../../styling/Buttons.css";
 
 function Proposals( { number, updateNumber, setProposals, contract, accounts } ) {
   const [description, setDescription] = useState("");
@@ -39,12 +40,14 @@ function Proposals( { number, updateNumber, setProposals, contract, accounts } )
   };
 
   return(
-    <div>
-      <input placeholder="add proposal description" onChange={handleAddProposal}></input>
-      <button onClick={addProposal}>press</button>
+    <div class="voteInputs">
+      <p>Add a new proposal:</p>
+      <input class="inputs" placeholder="description" onChange={handleAddProposal}></input>
+      <button class="buttonS" onClick={addProposal}>Add</button>
       <br />
-      <input id="id" placeholder="get proposal by id"></input>
-      <button onClick={getProposal}>press</button>
+      <p>Search for a proposal:</p>
+      <input class="inputs" id="id" placeholder="proposal id"></input>
+      <button class="buttonS" onClick={getProposal}>Get</button>
       {proposalGetter === true ? <p>Proposal {id} got {voteCount} votes</p> : null}
     </div>
   )

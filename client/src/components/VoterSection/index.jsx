@@ -2,6 +2,7 @@ import useEth from "../../contexts/EthContext/useEth";
 import Proposals from "./Proposals";
 import Vote from "./Vote";
 import { useState, useEffect } from "react";
+import "../../styling/Indexes.css";
 
 function VoterSection( { addresses }) {
   const { state: { contract, accounts } } = useEth();
@@ -60,7 +61,7 @@ function VoterSection( { addresses }) {
 
   return (
     <div className="voter">
-      <h1 className="title">Voters Section</h1>
+      <h2 className="title">Voters Section</h2>
       {number !== 0 ? ifProposals : null}
       <br/>
       {component}

@@ -13,9 +13,9 @@ function LogsSection({addresses}) {
     </div>
   
   return (
-    <div className="logs">
-      <h1 className="title">Events</h1>
+    <div>
       {logs}
+      <br/>
     </div>
   );
 }

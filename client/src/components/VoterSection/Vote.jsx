@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
+import "../../styling/Buttons.css";
 
 function Vote( {number} ) {
     const { state: { contract, accounts } } = useEth();
@@ -33,12 +34,14 @@ function Vote( {number} ) {
     }
 
     return(
-        <div>
-            <input id="proposal" placeholder="set id of proposal"></input>
-            <button onClick={vote}>Vote</button>
-            <br />
-            <input id="address" placeholder="search voter from address"></input>
-            <button onClick={getVoter}>Get Voter</button>
+        <div class="voteInputs">
+            <p>Vote for a proposal:</p>
+            <input class="inputs" id="proposal" placeholder="proposal id"></input>
+            <button class="buttonS" onClick={vote}>Vote</button>
+            <br/>
+            <p>Search for a voter:</p>
+            <input class="inputs" id="address" placeholder="address"></input>
+            <button class="buttonS" onClick={getVoter}>Get</button>
             {voterGetter === true? <p>Voter {voterAddress} voted for proposal {votedId} </p> : null}
         </div>
     )

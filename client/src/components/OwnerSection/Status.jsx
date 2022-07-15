@@ -19,9 +19,9 @@ function Status({status}) {
   }
   
   return(
-    <span>
-      <strong>{getStatus(status)}</strong>
-    </span>
+    <div>
+      <p>State of the voting session: <strong>{getStatus(status)}</strong></p>
+    </div>
   )
 }
 

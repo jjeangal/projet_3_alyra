@@ -1,0 +1,41 @@
+.buttonS {
+  display: inline-block;
+  padding: 0.4em 1.5em;
+  margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid #613747;
+  border-radius: 1em;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  color: #8599c5;
+  text-shadow: 0 0.04em 0.04em rgba(255, 255, 255, 0.253);
+  text-align: center;
+  transition: all 0.2s;
+}
+  
+.buttonS:hover {
+  color: #554e78;
+  background-color: #edcba8;
+}
+
+.inputs {
+  margin-right: 10px;
+  padding: 0.4em 1.5em;
+  border: 0.16em solid #613747;
+  border-radius: 1em;
+  text-align: center;
+}
+
+.voteInputs {
+  width: 100vw;
+}
+
+.voteInputs p { 
+  display: inline;
+  margin-right: 10px; 
+}
+
+.statusButtons {
+  display: flex;
+  align-items: center;
+}

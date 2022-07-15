@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import useEth from "../../contexts/EthContext/useEth";
+import "../../styling/Buttons.css";
 
 function StatusChange({ setStatus }) {
     const { state: { accounts, contract } } = useEth();
@@ -73,12 +74,12 @@ function StatusChange({ setStatus }) {
     }
 
     return(
-        <div className="statusChanges">
-            <button className={"stateButton"} onClick={startProp}>Start proposal phase</button>
-            <button className={"stateButton"} onClick={endProp}>End proposal phase</button>
-            <button className={"stateButton"} onClick={startVoting}>Start voting phase</button>
-            <button className={"stateButton"} onClick={endVoting}>End voting phase</button>
-            <button className={"stateButton"} onClick={tallyVotes}>tally Votes</button>
+        <div class="statusButtons">
+            <button class="buttonS" onClick={startProp}>Start proposal phase</button>
+            <button class="buttonS" onClick={endProp}>End proposal phase</button>
+            <button class="buttonS" onClick={startVoting}>Start voting phase</button>
+            <button class="buttonS" onClick={endVoting}>End voting phase</button>
+            <button class="buttonS" onClick={tallyVotes}>Tally Votes</button>
         </div>
     )
 }

@@ -1,9 +1,11 @@
-import Welcome from "./Welcome";
+import "../../styling/Intro.css";
 
 function Intro() {
   return (
     <>
-      <Welcome />
+      <div>
+        <h1>👋 Welcome to this Voting Session!</h1>
+      </div>
     </>
   );
 }
