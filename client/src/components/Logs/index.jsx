@@ -1,10 +1,11 @@
-function LogsSection({addresses}) {
+import "../../styling/Logs.css";
 
+function LogsSection({addresses}) {
   const logs = 
     <div>
-      <p>All voters addresses</p>
       <table>
         <tbody>
+          <tr><th>Voters Addresses</th></tr>
           {addresses.map((address) => 
             (<tr key={address.id}><td>{address.returnValues._voterAddress}</td></tr>))}
         </tbody>
