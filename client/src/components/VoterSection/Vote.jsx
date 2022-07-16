@@ -27,11 +27,31 @@ function Vote( {number} ) {
             const transac = await contract.methods.getVoter(addr).call({ from: accounts[0] });
             updateVotedId(transac.votedProposalId);
             updateVoterAddress(addr);
-            handleVoterGetter(true);
+            let state = 3;
+            if(transac.isRegistered) {
+                state = 2;
+                if(transac.hasVoted) {
+                    state = 1;
+                }
+            } 
+            handleVoterGetter(state);
         } else {
             alert("Not a valid address");
         }
     }
+
+    function ShowVoter(props) {
+        const state = props.state;
+        if(state === 1) {
+            return <><br/><p>Voter <strong>{voterAddress}</strong> voted for proposal {votedId} </p></>;
+        } if (state === 2) {
+          return <><br/><p>Voter <strong>{voterAddress}</strong> has not yet voted.</p></>;
+        } if(state === 3) {
+            return  <><br/><p> <strong>{voterAddress}</strong> is not a voter.</p></>;
+        } else {
+            return null;
+        }
+      }
 
     return(
         <div class="voteInputs">
@@ -42,7 +62,7 @@ function Vote( {number} ) {
             <p>Search for a voter:</p>
             <input class="inputs" id="address" placeholder="address"></input>
             <button class="buttonS" onClick={getVoter}>Get</button>
-            {voterGetter === true? <p>Voter {voterAddress} voted for proposal {votedId} </p> : null}
+            <ShowVoter state={voterGetter}></ShowVoter>
         </div>
     )
 }
