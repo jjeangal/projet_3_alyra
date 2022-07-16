@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import OwnerSection from "./components/OwnerSection";
 import VoterSection from "./components/VoterSection";
 import LogsSection from "./components/Logs";
+import ProposalsList from "./components/ProposalsList";
 import Status from "./components/OwnerSection/Status";
 import { useState } from "react";
 import "./App.css";
@@ -11,6 +12,8 @@ import "./App.css";
 function App() {
   const [addresses, setAddresses] = useState([]);
   const [status, setStatus] = useState(0);
+  const [proposals, setProposals] = useState([]);
+  const [number, updateNumber] = useState();
 
   return (
     <EthProvider>
@@ -23,7 +26,14 @@ function App() {
           <Status status={status}/>
           <OwnerSection status={status} setAddresses={setAddresses} setStatus={setStatus}/>
           <hr />
-          <VoterSection addresses={addresses}/>
+          {number !== 0 ? <ProposalsList proposals={proposals}/> : null}
+          <VoterSection 
+            status={status}
+            number={number} 
+            updateNumber={updateNumber} 
+            proposals={proposals} 
+            setProposals={setProposals} 
+            addresses={addresses}/>
           {addresses.length > 0 ? <LogsSection addresses={addresses}/> : null}
         </div>
       </div>
