@@ -1,3 +1,26 @@
 h2 {
     color: #613747;
 }
+
+h4 {
+    margin-bottom: 15px;
+}
+
+table {
+    border-collapse: "collapse";
+    border: 1px solid;
+    width: 100%;
+    text-align: center;
+}
+
+table td, th {
+    border-right: 1px solid;
+}
+
+table td:last-child {
+    border-right: none;
+}
+
+table th:last-child {
+    border-right: none;
+}

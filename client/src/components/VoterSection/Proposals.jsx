@@ -19,7 +19,6 @@ function Proposals( { number, updateNumber, setProposals, contract, accounts } )
   } 
 
   const getProposal = async() => {
-
     const proposalId = document.getElementById("id").value;
     if (/^(0|[1-9][0-9]*)$/.test(proposalId)) {
       if(proposalId < number) {
@@ -39,6 +38,12 @@ function Proposals( { number, updateNumber, setProposals, contract, accounts } )
     setDescription(e.target.value);
   };
 
+  const showVoter = 
+    <>
+      <br/>
+      <p>Proposal <strong>{id}</strong> got <strong>{voteCount}</strong> votes</p>
+    </>
+
   return(
     <div class="voteInputs">
       <p>Add a new proposal:</p>
@@ -48,7 +53,7 @@ function Proposals( { number, updateNumber, setProposals, contract, accounts } )
       <p>Search for a proposal:</p>
       <input class="inputs" id="id" placeholder="proposal id"></input>
       <button class="buttonS" onClick={getProposal}>Get</button>
-      {proposalGetter === true ? <p>Proposal {id} got {voteCount} votes</p> : null}
+      {proposalGetter === true ? showVoter: null}
     </div>
   )
 }

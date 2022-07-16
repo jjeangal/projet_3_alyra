@@ -50,9 +50,11 @@ function VoterSection( { addresses }) {
 
   const ifProposals = 
     <>
+      <br/>
+      <h4>List of current proposals</h4>
       <table>
-        <p>List of proposals:</p>
         <tbody>
+          <tr><th>Id</th><th>Description</th></tr>
           {proposals.map((proposal) => 
             (<tr key={proposal.id}><td>{proposal.returnValues._proposalId}</td><td>{proposal.returnValues._desc}</td></tr>))}
         </tbody>
