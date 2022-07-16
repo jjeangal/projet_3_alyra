@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../../styling/Buttons.css";
 
-function Proposals( { number, updateNumber, setProposals, contract, accounts } ) {
+function Proposals( { status, number, updateNumber, setProposals, contract, accounts } ) {
   const [description, setDescription] = useState("");
   const [voteCount, setVoteCount] = useState(0);
   const [proposalGetter, handleProposalGetter] = useState(false);
@@ -44,12 +44,17 @@ function Proposals( { number, updateNumber, setProposals, contract, accounts } )
       <p>Proposal <strong>{id}</strong> got <strong>{voteCount}</strong> votes</p>
     </>
 
-  return(
-    <div className="voteInputs">
+  const timeToAddProposal =
+    <>
       <p>Add a new proposal:</p>
       <input className="inputs" placeholder="description" onChange={handleAddProposal}></input>
       <button className="buttonS" onClick={addProposal}>Add</button>
       <br />
+    </>
+
+  return(
+    <div className="voteInputs">
+      {parseInt(status) === 1? timeToAddProposal: null}
       <p>Search for a proposal:</p>
       <input className="inputs" id="id" placeholder="proposal id"></input>
       <button className="buttonS" onClick={getProposal}>Get</button>
