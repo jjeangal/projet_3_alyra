@@ -68,12 +68,12 @@ function StatusChange({ status, setStatus }) {
     return(
         <>
             {showWinner === true ? winnerComponent : null}
-            <div class="statusButtons">
-                {parseInt(status) === 0 ? <button class="buttonS" onClick={startProp}>Start proposal phase</button> : null}
-                {parseInt(status) === 1 ? <button class="buttonS" onClick={endProp}>End proposal phase</button> : null}
-                {parseInt(status) === 2 ? <button class="buttonS" onClick={startVoting}>Start voting phase</button> : null}
-                {parseInt(status) === 3 ? <button class="buttonS" onClick={endVoting}>End voting phase</button> : null}
-                {parseInt(status) === 4 ? <button class="buttonS" onClick={tallyVotes}>Tally Votes</button> : null}
+            <div className="statusButtons">
+                {parseInt(status) === 0 ? <button className="buttonS" onClick={startProp}>Start proposal phase</button> : null}
+                {parseInt(status) === 1 ? <button className="buttonS" onClick={endProp}>End proposal phase</button> : null}
+                {parseInt(status) === 2 ? <button className="buttonS" onClick={startVoting}>Start voting phase</button> : null}
+                {parseInt(status) === 3 ? <button className="buttonS" onClick={endVoting}>End voting phase</button> : null}
+                {parseInt(status) === 4 ? <button className="buttonS" onClick={tallyVotes}>Tally Votes</button> : null}
             </div>
         </>
     )

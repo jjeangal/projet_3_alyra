@@ -41,13 +41,13 @@ function AddVoter({ setAddresses }) {
     return (
         <div>
             Add following adress: <input
-                class="inputs"
+                className="inputs"
                 type="text"
                 placeholder="address"
                 value={inputValue}
                 onChange={handleInputChange}
              />
-            <button class="buttonS" onClick={addVoter}>Add</button>
+            <button className="buttonS" onClick={addVoter}>Add</button>
         </div>
     )
 }

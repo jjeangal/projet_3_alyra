@@ -45,14 +45,14 @@ function Proposals( { number, updateNumber, setProposals, contract, accounts } )
     </>
 
   return(
-    <div class="voteInputs">
+    <div className="voteInputs">
       <p>Add a new proposal:</p>
-      <input class="inputs" placeholder="description" onChange={handleAddProposal}></input>
-      <button class="buttonS" onClick={addProposal}>Add</button>
+      <input className="inputs" placeholder="description" onChange={handleAddProposal}></input>
+      <button className="buttonS" onClick={addProposal}>Add</button>
       <br />
       <p>Search for a proposal:</p>
-      <input class="inputs" id="id" placeholder="proposal id"></input>
-      <button class="buttonS" onClick={getProposal}>Get</button>
+      <input className="inputs" id="id" placeholder="proposal id"></input>
+      <button className="buttonS" onClick={getProposal}>Get</button>
       {proposalGetter === true ? showVoter: null}
     </div>
   )

@@ -54,14 +54,14 @@ function Vote( {number} ) {
       }
 
     return(
-        <div class="voteInputs">
+        <div className="voteInputs">
             <p>Vote for a proposal:</p>
-            <input class="inputs" id="proposal" placeholder="proposal id"></input>
-            <button class="buttonS" onClick={vote}>Vote</button>
+            <input className="inputs" id="proposal" placeholder="proposal id"></input>
+            <button className="buttonS" onClick={vote}>Vote</button>
             <br/>
             <p>Search for a voter:</p>
-            <input class="inputs" id="address" placeholder="address"></input>
-            <button class="buttonS" onClick={getVoter}>Get</button>
+            <input className="inputs" id="address" placeholder="address"></input>
+            <button className="buttonS" onClick={getVoter}>Get</button>
             <ShowVoter state={voterGetter}></ShowVoter>
         </div>
     )
