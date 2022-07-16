@@ -20,7 +20,7 @@ function Status({status}) {
   
   return(
     <div>
-      <p>State of the voting session: <strong>{getStatus(status)}</strong></p>
+      <p>Status of this session: <strong>{getStatus(status)}</strong></p>
     </div>
   )
 }
