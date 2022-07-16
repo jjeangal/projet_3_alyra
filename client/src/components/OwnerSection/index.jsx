@@ -40,7 +40,6 @@ function OwnerSection({ setAddresses, status, setStatus }) {
   const winnerComponent =
     <>
       <p>The winner of this voting session is proposal {winner}</p>
-      <br />
     </>
 
   return (

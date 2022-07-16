@@ -1,6 +1,6 @@
 import useEth from "../../contexts/EthContext/useEth";
 import Proposals from "./Proposals";
-import Vote from "./Vote";
+import Vote from "./Votes";
 import { useState, useEffect } from "react";
 import "../../styling/Indexes.css";
 

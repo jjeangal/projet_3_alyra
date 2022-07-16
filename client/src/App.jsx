@@ -3,9 +3,9 @@ import Intro from "./components/Intro/";
 import Header from "./components/Header";
 import OwnerSection from "./components/OwnerSection";
 import VoterSection from "./components/VoterSection";
-import LogsSection from "./components/Logs";
+import VoterAddresses from "./components/VoterAddresses";
 import ProposalsList from "./components/ProposalsList";
-import Status from "./components/OwnerSection/Status";
+import Status from "./components/Status";
 import { useState } from "react";
 import "./App.css";
 
@@ -34,7 +34,7 @@ function App() {
             proposals={proposals} 
             setProposals={setProposals} 
             addresses={addresses}/>
-          {addresses.length > 0 ? <LogsSection addresses={addresses}/> : null}
+          {addresses.length > 0 ? <VoterAddresses addresses={addresses}/> : null}
         </div>
       </div>
     </EthProvider>
