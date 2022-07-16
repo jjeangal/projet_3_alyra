@@ -1,11 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 import "../../styling/Buttons.css";
 
-function StatusChange({ status, setStatus }) {
+function StatusChange({ setWinner, handleShowWinner, status, setStatus }) {
     const { state: { accounts, contract } } = useEth();
-    const [winner, setWinner] = useState();
-    const [showWinner, handleShowWinner] = useState(false);
 
     const updateStatus = useCallback(async() => {
         const currentStatus = await contract.methods.workflowStatus().call();
@@ -23,7 +21,7 @@ function StatusChange({ status, setStatus }) {
                 handleShowWinner(true);
             }
         }
-    }, [contract]);
+    }, [contract, setWinner, handleShowWinner]);
 
     useEffect(() => {
         const checkWinner = async() => {
@@ -31,10 +29,8 @@ function StatusChange({ status, setStatus }) {
                 loadWinner();
             }
         }
-
-        updateStatus();
         checkWinner();
-    }, [contract, status, loadWinner, updateStatus]);
+    }, [contract, status, loadWinner]);
     
     const startProp = async() => {
         await contract.methods.startProposalsRegistering().send({ from: accounts[0] });
@@ -62,20 +58,15 @@ function StatusChange({ status, setStatus }) {
         loadWinner();
     }
 
-    const winnerComponent =
-        <p>The winner of this voting session is proposal {winner}</p>
-
     return(
-        <>
-            {showWinner === true ? winnerComponent : null}
-            <div className="statusButtons">
-                {parseInt(status) === 0 ? <button className="buttonS" onClick={startProp}>Start proposal phase</button> : null}
-                {parseInt(status) === 1 ? <button className="buttonS" onClick={endProp}>End proposal phase</button> : null}
-                {parseInt(status) === 2 ? <button className="buttonS" onClick={startVoting}>Start voting phase</button> : null}
-                {parseInt(status) === 3 ? <button className="buttonS" onClick={endVoting}>End voting phase</button> : null}
-                {parseInt(status) === 4 ? <button className="buttonS" onClick={tallyVotes}>Tally Votes</button> : null}
-            </div>
-        </>
+        <div className="statusButtons">
+            {parseInt(status) === 0 ? <button className="buttonS" onClick={startProp}>Start proposal phase</button> : null}
+            {parseInt(status) === 1 ? <button className="buttonS" onClick={endProp}>End proposal phase</button> : null}
+            {parseInt(status) === 2 ? <button className="buttonS" onClick={startVoting}>Start voting phase</button> : null}
+            {parseInt(status) === 3 ? <button className="buttonS" onClick={endVoting}>End voting phase</button> : null}
+            {parseInt(status) === 4 ? <button className="buttonS" onClick={tallyVotes}>Tally Votes</button> : null}
+            {parseInt(status) === 5 ? <p>Voting session  is over.</p> : null}
+        </div>
     )
 }
 

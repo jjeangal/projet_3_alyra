@@ -1,24 +1,10 @@
 import useEth from "../../contexts/EthContext/useEth";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../../styling/Buttons.css";
 
-function AddVoter({ setAddresses }) {
+function AddVoter({ status, setAddresses }) {
     const { state: { contract, accounts } } = useEth();
     const [inputValue, setInputValue] = useState("");
-
-    useEffect(() => {
-        const getEvents = async () => {
-            try {
-                if(contract) {
-                    const addrArray = await contract.getPastEvents('VoterRegistered', {fromBlock: 0});
-                    setAddresses(addrArray);
-                }
-            } catch (err) {
-              console.error(err);
-            }
-        };
-        getEvents();
-    }, [contract, setAddresses]);
 
     const addVoter = async() => {
         try {
@@ -38,7 +24,7 @@ function AddVoter({ setAddresses }) {
         }
     };
 
-    return (
+    const addVoterComponent =
         <div>
             Add following adress: <input
                 className="inputs"
@@ -46,10 +32,11 @@ function AddVoter({ setAddresses }) {
                 placeholder="address"
                 value={inputValue}
                 onChange={handleInputChange}
-             />
+            />
             <button className="buttonS" onClick={addVoter}>Add</button>
         </div>
-    )
+
+    return (parseInt(status) === 0 ? addVoterComponent : null);
 }
 
 export default AddVoter;

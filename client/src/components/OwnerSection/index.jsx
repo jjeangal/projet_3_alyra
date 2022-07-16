@@ -7,36 +7,49 @@ import "../../styling/Indexes.css";
 function OwnerSection({ setAddresses, status, setStatus }) {
   const { state: { contract, accounts } } = useEth();
   const [component, updateComponent] = useState();
+  const [winner, setWinner] = useState();
+  const [showWinner, handleShowWinner] = useState(false);
 
   useEffect(() => {
     const onlyOwner = 
     <>
-      <StatusChange status={status} setStatus={setStatus}/>
+      <h2 className="title">Administrator section</h2>
       <br/>
-      <AddVoter setAddresses={setAddresses}/>
+      <StatusChange 
+        status={status} 
+        setStatus={setStatus} 
+        setWinner={setWinner} 
+        handleShowWinner={handleShowWinner}/>
+      <AddVoter status={status} setAddresses={setAddresses}/>
     </>
-
-    const notOwner = 
-      <>
-        <br/>
-        <p className="centered">You are not an owner</p>
-      </>
 
     const load = async() => {
       if(contract) {
         const owner = await contract.methods.owner().call();
-        owner === accounts[0] ? updateComponent(onlyOwner) : updateComponent(notOwner);
+        const addrArray = await contract.getPastEvents('VoterRegistered', {fromBlock: 0});
+        const currentStatus = await contract.methods.workflowStatus().call();
+        setStatus(currentStatus);
+        setAddresses(addrArray);
+        owner === accounts[0] ? updateComponent(onlyOwner) : updateComponent(<></>);
       }
     }
     load();
     
   }, [contract, accounts, status, setStatus, setAddresses]);
 
+  const winnerComponent =
+    <>
+      <p>The winner of this voting session is proposal {winner}</p>
+      <br />
+    </>
+
   return (
-    <div className="owner">
-      <h2 className="title">Administrator section</h2>
-      {component}
-    </div>
+    <>
+      {showWinner === true ? winnerComponent : null}
+      <div>
+        {component}
+      </div>
+    </>
   );
 }
 
