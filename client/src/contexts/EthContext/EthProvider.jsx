@@ -43,7 +43,7 @@ function EthProvider({ children }) {
     const events = ["chainChanged", "accountsChanged"];
     const handleChange = () => {
       init(state.artifact);
-      alert("Connected with new address.");
+      alert("Connecting with new address.");
     };
 
     events.forEach(e => window.ethereum.on(e, handleChange));
