@@ -82,7 +82,7 @@ contract("Voting", accounts => {
 
             it('adding voter triggers event', async function() {
                 let addVoterEvent = await this.VotingInstance.addVoter(voter1, {from: owner});
-                await expectEvent(addVoterEvent, 'VoterRegistered', {voterAddress: voter1});
+                await expectEvent(addVoterEvent, 'VoterRegistered', {_voterAddress: voter1});
             });
         
             it('only owner can add a voter', async function() {
@@ -182,7 +182,7 @@ contract("Voting", accounts => {
                 let id = new BN(0);
                 await this.VotingInstance.startProposalsRegistering({from: owner});
                 let proposalAdded = await this.VotingInstance.addProposal('Test', {from: voter1});
-                await expectEvent(proposalAdded, "ProposalRegistered", {proposalId: id});
+                await expectEvent(proposalAdded, "ProposalRegistered", {_proposalId: id});
             });
         });
 
@@ -238,7 +238,7 @@ contract("Voting", accounts => {
                 let id = 0;
                 let idBn = new BN(0);
                 let eventVote = await this.VotingInstance.setVote(id, {from: voter2}); 
-                await expectEvent(eventVote, "Voted", {voter: voter2, proposalId: idBn});
+                await expectEvent(eventVote, "Voted", {_voter: voter2, _proposalId: idBn});
             })
 
             it('cannot vote twice', async function() {

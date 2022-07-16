@@ -11,6 +11,7 @@ client/src/contracts
 client/*/src/contracts
 
 # Testing
+truffle/coverage.json
 coverage
 
 # Env
