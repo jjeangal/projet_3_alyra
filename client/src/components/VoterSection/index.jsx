@@ -19,7 +19,6 @@ function VoterSection( { addresses }) {
           updateNumber={updateNumber}
           contract={contract}
           accounts={accounts}/>
-        <br />
         <Vote number={number}/>
       </>; 
 
@@ -48,7 +47,7 @@ function VoterSection( { addresses }) {
     }
   }, [contract, accounts, addresses, number]);
 
-  const ifProposals = 
+  const proposalsTable = 
     <>
       <br/>
       <h4>List of current proposals</h4>
@@ -64,8 +63,7 @@ function VoterSection( { addresses }) {
   return (
     <div className="voter">
       <h2 className="title">Voters Section</h2>
-      {number !== 0 ? ifProposals : null}
-      <br/>
+      {number !== 0 ? proposalsTable : null}
       {component}
     </div>
   );
