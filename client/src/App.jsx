@@ -4,11 +4,13 @@ import Header from "./components/Header";
 import OwnerSection from "./components/OwnerSection";
 import VoterSection from "./components/VoterSection";
 import LogsSection from "./components/Logs";
+import Status from "./components/OwnerSection/Status";
 import { useState } from "react";
 import "./App.css";
 
 function App() {
   const [addresses, setAddresses] = useState([]);
+  const [status, setStatus] = useState(0);
 
   return (
     <EthProvider>
@@ -18,7 +20,9 @@ function App() {
           <hr />
           <Intro />
           <hr/>
-          <OwnerSection setAddresses={setAddresses}/>
+          <Status status={status}/>
+          <hr/>
+          <OwnerSection status={status} setAddresses={setAddresses} setStatus={setStatus}/>
           <hr />
           <VoterSection addresses={addresses}/>
           <hr />

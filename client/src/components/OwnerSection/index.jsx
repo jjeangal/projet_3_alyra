@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react";
-import Status from "./Status";
 import StatusChange from "./StatusChange";
 import AddVoter from "./AddVoter";
 import { useEth } from "../../contexts/EthContext";
 
-function OwnerSection({ setAddresses }) {
+function OwnerSection({ setAddresses, status, setStatus }) {
   const { state: { contract, accounts } } = useEth();
-  const [status, setStatus] = useState(0);
   const [component, updateComponent] = useState();
 
   useEffect(() => {
     const onlyOwner = 
     <>
-      <StatusChange setStatus={setStatus}/>
+      <StatusChange status={status} setStatus={setStatus}/>
       <br/>
       <AddVoter setAddresses={setAddresses}/>
     </>
@@ -30,12 +28,11 @@ function OwnerSection({ setAddresses }) {
     }
     load();
     
-  }, [contract, accounts, status, setAddresses]);
+  }, [contract, accounts, status, setStatus, setAddresses]);
 
   return (
     <div className="owner">
       <h2 className="title">Administrator section</h2>
-      <Status status={status} />
       {component}
     </div>
   );

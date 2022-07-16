@@ -1,94 +1,65 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 import "../../styling/Buttons.css";
 
-function StatusChange({ setStatus }) {
+function StatusChange({ status, setStatus }) {
     const { state: { accounts, contract } } = useEth();
     const [winner, setWinner] = useState();
     const [showWinner, handleShowWinner] = useState(false);
 
-    useEffect(() => {
-        const loadStatus = async() => {
-            const status = await contract.methods.workflowStatus().call();
-            setStatus(status);
-        }
+    const updateStatus = useCallback(async() => {
+        const currentStatus = await contract.methods.workflowStatus().call();
+        setStatus(currentStatus);
+    }, [contract, setStatus]);
 
-        const checkWinner = async() => {
-            const status = await contract.methods.workflowStatus().call();
-            if(parseInt(status) === 5) {
+    const loadWinner = useCallback(async() => {
+        contract.getPastEvents('ProposalRegistered', {fromBlock: 0, toBlock: 'latest'}).then(
+            results => factorWinner(results));
+        
+        const factorWinner = async(results) => {
+            if(results.length > 0) {
                 const winnerId = await contract.methods.winningProposalID().call();
                 setWinner(winnerId);
                 handleShowWinner(true);
             }
         }
+    }, [contract]);
 
-        loadStatus();
-        checkWinner();
-    }, [contract, setStatus]);
-
-    const updateStatus = async() => {
-        const status = await contract.methods.workflowStatus().call();
-        setStatus(status);
-    };
-    
-    const startProp = async() => {
-        try {
-            await contract.methods.startProposalsRegistering().send({ from: accounts[0] });
-            updateStatus();
-        } catch (error) {
-            if(error.message.includes("Registering proposals cant be started now")) {
-                alert("Registering proposals cant be started now");
+    useEffect(() => {
+        const checkWinner = async() => {
+            if(parseInt(status) === 5) {
+                loadWinner();
             }
         }
+
+        updateStatus();
+        checkWinner();
+    }, [contract, status, loadWinner, updateStatus]);
+    
+    const startProp = async() => {
+        await contract.methods.startProposalsRegistering().send({ from: accounts[0] });
+        updateStatus();
     }
 
     const endProp = async() => {
-        try {
-            await contract.methods.endProposalsRegistering().send({ from: accounts[0] });
-            updateStatus();
-        } catch (error) {
-            if(error.message.includes("Registering proposals havent started yet")) {
-                alert("Registering proposals havent started yet");
-            }
-        }
+        await contract.methods.endProposalsRegistering().send({ from: accounts[0] });
+        updateStatus();
     }
 
     const startVoting = async() => {
-        try {
-            await contract.methods.startVotingSession().send({ from: accounts[0] });
-            updateStatus();
-        } catch (error) {
-            if(error.message.includes("Registering proposals phase is not finished")) {
-                alert("Registering proposals phase is not finished");
-            }
-        }
+        await contract.methods.startVotingSession().send({ from: accounts[0] });
+        updateStatus();
     }
 
     const endVoting = async() => {
-        try {
-            await contract.methods.endVotingSession().send({ from: accounts[0] });
-            updateStatus();
-        } catch (error) {
-            if(error.message.includes("Voting session havent started yet")) {
-                alert("Voting session havent started yet");
-            }
-        }
+        await contract.methods.endVotingSession().send({ from: accounts[0] });
+        updateStatus();
     }
 
     const tallyVotes = async() => {
-        try {
-            await contract.methods.tallyVotes().send({ from: accounts[0] });
-            const winner = await contract.methods.winningProposalID().call();
-            updateStatus();
-            setWinner(winner);
-            handleShowWinner(true);
-            console.log(winner);
-        } catch (error) {
-            if(error.message.includes("Current status is not voting session ended")) {
-                alert("Current status is not voting session ended");
-            }
-        }
+        await contract.methods.tallyVotes().send({ from: accounts[0] });
+        updateStatus();
+        loadWinner();
     }
 
     const winnerComponent =
@@ -98,11 +69,11 @@ function StatusChange({ setStatus }) {
         <>
             {showWinner === true ? winnerComponent : null}
             <div class="statusButtons">
-                <button class="buttonS" onClick={startProp}>Start proposal phase</button>
-                <button class="buttonS" onClick={endProp}>End proposal phase</button>
-                <button class="buttonS" onClick={startVoting}>Start voting phase</button>
-                <button class="buttonS" onClick={endVoting}>End voting phase</button>
-                <button class="buttonS" onClick={tallyVotes}>Tally Votes</button>
+                {parseInt(status) === 0 ? <button class="buttonS" onClick={startProp}>Start proposal phase</button> : null}
+                {parseInt(status) === 1 ? <button class="buttonS" onClick={endProp}>End proposal phase</button> : null}
+                {parseInt(status) === 2 ? <button class="buttonS" onClick={startVoting}>Start voting phase</button> : null}
+                {parseInt(status) === 3 ? <button class="buttonS" onClick={endVoting}>End voting phase</button> : null}
+                {parseInt(status) === 4 ? <button class="buttonS" onClick={tallyVotes}>Tally Votes</button> : null}
             </div>
         </>
     )
