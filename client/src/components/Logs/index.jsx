@@ -3,6 +3,7 @@ import "../../styling/Logs.css";
 function LogsSection({addresses}) {
   const logs = 
     <div>
+      <hr/>
       <table>
         <tbody>
           <tr><th>Voters Addresses</th></tr>

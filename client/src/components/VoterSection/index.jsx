@@ -39,7 +39,7 @@ function VoterSection( { addresses }) {
       addresses.forEach(voter => {
         if(voter.returnValues._voterAddress === accounts[0]) isVoter = true;
       });
-      isVoter === true ? updateComponent(onlyVoter) : updateComponent(<>You are not a voter</>);
+      isVoter === true ? updateComponent(onlyVoter) : updateComponent(<p className="centered" >You are not a voter</p>);
     }
 
     if(contract) {

@@ -24,3 +24,7 @@ table td:last-child {
 table th:last-child {
     border-right: none;
 }
+
+.centered {
+    text-align: center;
+}

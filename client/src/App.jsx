@@ -21,12 +21,10 @@ function App() {
           <Intro />
           <hr/>
           <Status status={status}/>
-          <hr/>
           <OwnerSection status={status} setAddresses={setAddresses} setStatus={setStatus}/>
           <hr />
           <VoterSection addresses={addresses}/>
-          <hr />
-          <LogsSection addresses={addresses}/>
+          {addresses.length > 0 ? <LogsSection addresses={addresses}/> : null}
         </div>
       </div>
     </EthProvider>

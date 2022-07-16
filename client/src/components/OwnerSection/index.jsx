@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import StatusChange from "./StatusChange";
 import AddVoter from "./AddVoter";
 import { useEth } from "../../contexts/EthContext";
+import "../../styling/Indexes.css";
 
 function OwnerSection({ setAddresses, status, setStatus }) {
   const { state: { contract, accounts } } = useEth();
@@ -17,7 +18,8 @@ function OwnerSection({ setAddresses, status, setStatus }) {
 
     const notOwner = 
       <>
-        <p>You are not an owner</p>
+        <br/>
+        <p className="centered">You are not an owner</p>
       </>
 
     const load = async() => {
