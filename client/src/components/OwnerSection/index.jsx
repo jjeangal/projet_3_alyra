@@ -21,6 +21,7 @@ function OwnerSection({ setAddresses, status, setStatus }) {
         setWinner={setWinner} 
         handleShowWinner={handleShowWinner}/>
       <AddVoter status={status} setAddresses={setAddresses}/>
+      <hr />
     </>
 
     const load = async() => {

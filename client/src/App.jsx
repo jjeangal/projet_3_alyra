@@ -25,7 +25,6 @@ function App() {
           <hr/>
           <Status status={status}/>
           <OwnerSection status={status} setAddresses={setAddresses} setStatus={setStatus}/>
-          <hr />
           {number !== 0 ? <ProposalsList proposals={proposals}/> : null}
           <VoterSection 
             status={status}
