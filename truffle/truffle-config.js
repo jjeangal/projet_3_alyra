@@ -1,4 +1,4 @@
-// addresse deployed to: 0xa87dFe4D35361944B9Bce9a4E7A3c22Aa4EA1150
+// addresse deployed to: 0x2253fdb45B93e24f991Fb448500925F010E80F8d
 
 const HDWalletProvider = require('@truffle/hdwallet-provider'); 
 require('dotenv').config();
