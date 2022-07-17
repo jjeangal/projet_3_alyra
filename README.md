@@ -29,6 +29,9 @@ $ npm start
 
 From there, follow the instructions on the hosted React app. It will walk you through using Truffle and Ganache to deploy the `SimpleStorage` contract, making calls to it, and sending transactions to change the contract's state.
 
+Contract deployed at this address: 0xa87dFe4D35361944B9Bce9a4E7A3c22Aa4EA1150
+
+
 ## Video Presentations
 
 Workflow presentation: https://www.loom.com/share/ee9bb49b6e594d8cbc9dc3a2f0fd153a, 
