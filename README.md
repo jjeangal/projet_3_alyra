@@ -31,7 +31,7 @@ From there, follow the instructions on the hosted React app. It will walk you th
 
 ## Video Presentations
 
-Workflow presentation: https://www.loom.com/share/ee9bb49b6e594d8cbc9dc3a2f0fd153a
+Workflow presentation: https://www.loom.com/share/ee9bb49b6e594d8cbc9dc3a2f0fd153a, 
 Code presentation: https://www.loom.com/share/617c7d0697f4459cb9213466e458fb43
 
 
