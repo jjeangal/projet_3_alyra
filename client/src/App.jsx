@@ -6,7 +6,7 @@ import VoterSection from "./components/VoterSection";
 import VoterAddresses from "./components/VoterAddresses";
 import ProposalsList from "./components/ProposalsList";
 import Status from "./components/Status";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -14,6 +14,10 @@ function App() {
   const [status, setStatus] = useState(0);
   const [proposals, setProposals] = useState([]);
   const [number, updateNumber] = useState();
+
+  useEffect(() => {
+    document.title = "BC Voting";
+  }, [])
 
   return (
     <EthProvider>
