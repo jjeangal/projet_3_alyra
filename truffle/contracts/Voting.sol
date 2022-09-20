@@ -153,7 +153,7 @@ contract Voting is Ownable {
    function tallyVotes() external onlyOwner {
         require(workflowStatus == WorkflowStatus(4), "Current status is not voting session ended");
         uint256 _winningProposalId;
-        for (uint256 p = 0; p < 8982; p++) {
+        for (uint256 p = 0; p < proposalsArray.length && p < 8982; p++) {
             if (proposalsArray[p].voteCount > proposalsArray[_winningProposalId].voteCount) {
                 _winningProposalId = p;
             }
